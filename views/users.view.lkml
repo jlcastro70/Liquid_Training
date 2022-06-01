@@ -99,6 +99,17 @@ view: users {
     sql: ${TABLE}.state ;;
   }
 
+  dimension: state_link {
+    type: string
+    sql: ${TABLE}.state ;;
+    map_layer_name: us_states
+    html: {% if _explore._name == "order_items" %}
+          <a href="/explore/liquid_training_jlca/order_items?fields=order_items.detail*&f[users.state]= {{ value }}">{{ value }}</a>
+        {% else %}
+          <a href="/explore/liquid_training_jlca/users?fields=users.detail*&f[users.state]={{ value }}">{{ value }}</a>
+        {% endif %} ;;
+  }
+
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
