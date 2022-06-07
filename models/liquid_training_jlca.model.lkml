@@ -32,13 +32,19 @@ explore: inventory_items {
 explore: order_items {
   join: orders {
     type: left_outer
-    sql_on: ${order_items.order_id} = ${orders.id} ;;
+    sql_on: ${order_items.order_id} = ${orders.user_id} ;;
     relationship: many_to_one
   }
 
   join: inventory_items {
     type: left_outer
     sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
+    relationship: many_to_one
+  }
+
+  join: user_facts {
+    type: left_outer
+    sql_on: ${orders.user_id} = ${user_facts.user_id};;
     relationship: many_to_one
   }
 

@@ -1,4 +1,4 @@
-view: sql_runner_query {
+view: user_facts {
   derived_table: {
     sql: SELECT order_items.user_id AS user_id
           ,COUNT(distinct order_items.order_id) AS lifetime_order_count
@@ -20,7 +20,7 @@ view: sql_runner_query {
   dimension: user_id {
     primary_key: yes
     type: number
-    sql: ${TABLE}.user_id ;;
+    sql: ${TABLE}.id ;;
   }
 
   dimension: lifetime_order_count {
@@ -31,6 +31,15 @@ view: sql_runner_query {
   dimension: lifetime_revenue {
     type: number
     sql: ${TABLE}.lifetime_revenue ;;
+  }
+
+  measure: average_lifetime_revenue {
+    type: average
+    sql: ${TABLE}.lifetime_revenue ;;
+  }
+  measure: average_lifetime_order_count {
+    type: average
+    sql: ${TABLE}.lifetime_order_count ;;
   }
 
   dimension_group: first_order_date {
